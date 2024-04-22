@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const gradelevelController=require('../Controllers/gradelevel');
+const gradelevelController = require("../Controllers/gradelevel");
 router
   .route("/gradelevels")
   .get(gradelevelController.gradelevels)
@@ -10,4 +10,9 @@ router
   .get(gradelevelController.getGradelevel)
   .put(gradelevelController.updateGradelevel)
   .delete(gradelevelController.deleteGradelevel);
+
+router
+  .route("/gradelevel/:id/sections")
+  .get(gradelevelController.getGradelevelWithSections);
+
 module.exports = router;

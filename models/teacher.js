@@ -1,6 +1,7 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Gradelevel = require("./gradelevel");
+const Subject = require("./subject");
 
 const Teacher = sequelize.define(
   "Teacher",
@@ -16,9 +17,6 @@ const Teacher = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate:{
-        isEmail:true,
-      }
     },
     phone: {
       type: DataTypes.INTEGER,
@@ -30,9 +28,22 @@ const Teacher = sequelize.define(
   }
 );
 
-Teacher.belongsToMany(Gradelevel,{
-  through:"teacherGradelevel",
-  constraints:false})
-Gradelevel.belongsToMany(Teacher,{through:"teacherGradelevel"});
+Teacher.belongsToMany(Gradelevel, {
+  through: "teacherGradelevel",
+  constraints: false,
+});
+Gradelevel.belongsToMany(Teacher, { through: "teacherGradelevel" });
+
+Subject.belongsToMany(Teacher, {
+  through: "teacherSubject",
+  constraints: false,
+});
+Teacher.belongsToMany(Subject, { through: "teacherSubject" });
 
 module.exports = Teacher;
+
+// ATTENDANCECE, RERISTER RESULT, CHAT with, REPORT FOR, ANNOUNCEMENT, VIEW ANNOUNCEMENT,
+// DAILT ASSIGNMENT,
+// VIEW ATTENDANCE, RESULT, CHAT with, VIEW ANNOUNCEMENT, FOLLOWUP ASSIGNMENT, 
+
+// REGISTER Student, TEACHER, PARENT,GRADE,SECTION, ACADEMIC, CREATE ANNOUNCEMENT,REPORT ABOUT THE FileSystem,

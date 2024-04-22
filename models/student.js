@@ -1,6 +1,6 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
-const Gradelevel = require("./gradelevel");
+const Subject = require("./subject");
 
 const Student = sequelize.define(
   "Student",
@@ -12,12 +12,9 @@ const Student = sequelize.define(
     email: {
       type: DataTypes.STRING,
       allowNull: true,
-      validate: {
-        isEmail: true,
-      }
     },
     phone: {
-      type: DataTypes.INTEGER, // Assuming phone number is stored as a string
+      type: DataTypes.INTEGER,
       allowNull: true,
     },
   },
@@ -25,7 +22,10 @@ const Student = sequelize.define(
     timestamps: false,
   }
 );
-
-
+Student.belongsToMany(Subject, {
+  through: "studentSubject",
+  constraints: false,
+});
+Subject.belongsToMany(Student, { through: "studentSubject" });
 
 module.exports = Student;

@@ -11,7 +11,7 @@ exports.teachers = async (req, res) => {
     }
     res.status(200).json(teachers);
   } catch (error) {
-    console.log("Teacher ERROR IS...", error);
+    console.log("TEACHER ERROR IS...", error);
     res.status(500).json({
       success: false,
       message: "INTERNAL SERVER ERROR",
@@ -26,11 +26,11 @@ exports.createTeacher = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Please provide a Teacher name" });
     }
-    await Teacher.create({ 
-    firstname:data.firstname,
-    lastname:data.lastname,
-    email:data.email,
-    phone:data.phone
+    await Teacher.create({
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email,
+      phone: data.phone,
     });
     res.status(200).json({ success: true, message: "Teacher is created!" });
   } catch (error) {
@@ -54,9 +54,9 @@ exports.getTeacher = async (req, res) => {
   } catch (error) {
     console.log("GET Teacher ERROR IS...", error);
     res.status(500).json({
-        success: false,
-        message: "INTERNAL SERVER ERROR",
-      });
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
   }
 };
 
@@ -84,22 +84,20 @@ exports.updateTeacher = async (req, res) => {
         .json({ success: false, message: "Please Insert Teacher" });
     }
     await Teacher.update(
-      { 
+      {
         firstname: data.firstname,
-        lastname:data.lastname,
-         email: data.email, phone: 
-         data.phone },
+        lastname: data.lastname,
+        email: data.email,
+        phone: data.phone,
+      },
       { where: { id: req.params.id } }
     );
     res.status(200).json({ message: "Update success!!!" });
   } catch (error) {
     console.log("UPDATE Teacher ERROR IS...", error);
-    res.status(500).json(
-        { 
-        success: false, 
-        message: "INTERNAL SERVER ERROR"
-       }
-    );
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
   }
 };
-

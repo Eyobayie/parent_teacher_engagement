@@ -29,7 +29,7 @@ exports.createSection = async (req, res) => {
     await Section.create(
         { name: data.name,
          description:data.description, 
-         gradelevelId:data.gradelevelId
+         GradelevelId:data.GradelevelId,
          });
     res.status(200).json({ success: true, message: "Section is created!" });
   } catch (error) {
@@ -43,13 +43,13 @@ exports.createSection = async (req, res) => {
 
 exports.getSection = async (req, res) => {
   try {
-    const Section = await Section.findByPk(req.params.id);
-    if (!Section) {
+    const section = await Section.findByPk(req.params.id);
+    if (!section) {
       return res
         .status(200)
         .json({ success: false, message: "Section is not available!" });
     }
-    res.status(200).json(Section);
+    res.status(200).json(section);
   } catch (error) {
     console.log("GET Section ERROR IS...", error);
     res.status(500).json({
@@ -61,8 +61,8 @@ exports.getSection = async (req, res) => {
 
 exports.deleteSection = async (req, res) => {
   try {
-    const Section = await Section.findByPk(req.params.id);
-    if (!Section) {
+    const section = await Section.findByPk(req.params.id);
+    if (!section) {
       return res
         .status(200)
         .json({ success: false, message: "Section is not available" });
@@ -85,7 +85,7 @@ exports.updateSection = async (req, res) => {
     await Section.update(
       { name: data.name,
         description:data.description, 
-        gradelevelId:data.gradelevelId },
+        GradelevelId:data.GradelevelId },
       { where: { id: req.params.id } }
     );
     res.status(200).json({ message: "Update success!!!" });

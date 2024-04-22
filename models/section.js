@@ -22,5 +22,4 @@ const Section = sequelize.define(
 Section.hasMany(Student, {constraints:false})
 Student.belongsTo(Section)
 
-
 module.exports = Section;

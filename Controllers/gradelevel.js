@@ -1,4 +1,6 @@
+const { Model, where } = require("sequelize");
 const Gradelevel = require("../models/gradelevel");
+const Section = require("../models/section");
 
 exports.gradelevels = async (req, res) => {
   try {
@@ -26,7 +28,10 @@ exports.createGradelevel = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Please provide a Gradelevel name" });
     }
-    await Gradelevel.create({ grade: data.grade, description: data.description });
+    await Gradelevel.create({
+      grade: data.grade,
+      description: data.description,
+    });
     res.status(200).json({ success: true, message: "Gradelevel is created!" });
   } catch (error) {
     console.log("CREATE Gradelevel ERROR IS...", error);
@@ -39,31 +44,31 @@ exports.createGradelevel = async (req, res) => {
 
 exports.getGradelevel = async (req, res) => {
   try {
-    const Gradelevel = await Gradelevel.findByPk(req.params.id);
-    if (!Gradelevel) {
+    const gradelevel = await Gradelevel.findByPk(req.params.id);
+    if (!gradelevel) {
       return res
         .status(200)
         .json({ success: false, message: "Gradelevel is not available!" });
     }
-    res.status(200).json(Gradelevel);
+    res.status(200).json(gradelevel);
   } catch (error) {
     console.log("GET Gradelevel ERROR IS...", error);
     res.status(500).json({
-        success: false,
-        message: "INTERNAL SERVER ERROR",
-      });
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
   }
 };
 
 exports.deleteGradelevel = async (req, res) => {
   try {
-    const Gradelevel = await Gradelevel.findByPk(req.params.id);
-    if (!Gradelevel) {
+    const gradelevel = await Gradelevel.findByPk(req.params.id);
+    if (!gradelevel) {
       return res
         .status(200)
         .json({ success: false, message: "Gradelevel is not available" });
     }
-    await Gradelevel.destroy();
+    await gradelevel.destroy();
     res.status(200).json({ success: true, message: "Delete Successed!" });
   } catch (error) {
     console.log("DELETE BRANCH ERROR IS...", error);
@@ -79,12 +84,36 @@ exports.updateGradelevel = async (req, res) => {
         .json({ success: false, message: "Please Insert Gradelevel" });
     }
     await Gradelevel.update(
-      { name: data.name },
+      { name: data.name, description: data.description },
       { where: { id: req.params.id } }
     );
     res.status(200).json({ message: "Update success!!!" });
   } catch (error) {
     console.log("UPDATE Gradelevel ERROR IS...", error);
     res.status(500).json({ success: false, message: "INTERNAL SERVER ERROR" });
+  }
+};
+
+exports.getGradelevelWithSections = async (req, res) => {
+  try {
+    const grade = await Gradelevel.findOne({
+      where: { id: req.params.id },
+      include: Section,
+    });
+
+    if (!grade) {
+      return res.status(404).json({
+        success: false,
+        message: "Grade with sections is not available!!!",
+      });
+    }
+
+    res.status(200).json({ grade });
+  } catch (error) {
+    console.log("GRADE WITH SECTION ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
   }
 };

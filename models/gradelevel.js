@@ -2,6 +2,7 @@ const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Section = require("./section");
 const Student = require("./student");
+const Subject = require("./subject");
 
 const Gradelevel = sequelize.define(
   "Gradelevel",
@@ -25,5 +26,8 @@ Section.belongsTo(Gradelevel);
 
 Gradelevel.hasOne(Student,{constraints:false});
 Student.belongsTo(Gradelevel);
+
+Gradelevel.hasMany(Subject, {constraints:false});
+Subject.belongsTo(Gradelevel);
 
 module.exports = Gradelevel;

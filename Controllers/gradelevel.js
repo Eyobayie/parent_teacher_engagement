@@ -84,7 +84,7 @@ exports.updateGradelevel = async (req, res) => {
         .json({ success: false, message: "Please Insert Gradelevel" });
     }
     await Gradelevel.update(
-      { name: data.name, description: data.description },
+      { grade: data.grade, description: data.description },
       { where: { id: req.params.id } }
     );
     res.status(200).json({ message: "Update success!!!" });

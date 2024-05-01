@@ -1,4 +1,7 @@
 const Teacher = require("../models/teacher");
+const Department = require("../models/department");
+const Gradelevel = require("../models/gradelevel");
+const Subject = require("../models/subject");
 
 exports.teachers = async (req, res) => {
   try {
@@ -68,11 +71,13 @@ exports.deleteTeacher = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Teacher is not available" });
     }
-    await Teacher.destroy();
+    await teacher.destroy();
     res.status(200).json({ success: true, message: "Delete Successed!" });
   } catch (error) {
     console.log("DELETE BRANCH ERROR IS...", error);
-    res.status(500).json({ success: false, message: "INTERNAL SERVER ERROR" });
+    res
+      .status(500)
+      .json({ success: false, message: "INTERNAL SERVER ERROR!!!" });
   }
 };
 exports.updateTeacher = async (req, res) => {
@@ -94,10 +99,47 @@ exports.updateTeacher = async (req, res) => {
     );
     res.status(200).json({ message: "Update success!!!" });
   } catch (error) {
-    console.log("UPDATE Teacher ERROR IS...", error);
+    console.log("UPDATE TEACHER ERROR IS...", error);
     res.status(500).json({
       success: false,
-      message: "INTERNAL SERVER ERROR",
+      message: "INTERNAL ERROR SERVER ",
     });
+  }
+};
+
+
+exports.getTeacherDetails = async (req, res, next) => {
+  try {
+    const teacher = await Teacher.findOne({
+      where: { id: req.params.id },
+      include: [
+        {
+          model: Department,
+          through: { attributes: [] }, // Exclude association attributes
+          attributes: ["id", "name", "description"],
+        },
+        {
+          model: Gradelevel,
+          through: { attributes: [] }, // Exclude association attributes
+          attributes: ["id", "grade", "description"], // Include grade description if needed
+        },
+        {
+          model: Subject,
+          through: { attributes: [] }, // Exclude association attributes
+          attributes: ["id", "name", "description"],
+        },
+      ],
+    });
+
+    if (!teacher) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Teacher is not available" });
+    }
+    
+    return res.status(200).json(teacher);
+  } catch (error) {
+    console.error("Error fetching teacher details:", error);
+    return res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };

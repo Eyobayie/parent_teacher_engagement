@@ -16,7 +16,6 @@ const Teacher = sequelize.define(
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false,
     },
     phone: {
       type: DataTypes.INTEGER,

@@ -15,7 +15,7 @@ const dbConnection = async () => {
 };
 
 sequelize.sync(
-    { force: true,
+    { force: false,
     freezeTableName: true }).then(() => {
   console.log("Database and tables synced");
 });

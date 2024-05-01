@@ -6,7 +6,7 @@ const sectionRouter = require("./Routers/section");
 const academicYearRouter = require("./Routers/academicYear");
 const teacherController = require("./Routers/teacher");
 const subjectRouter = require("./Routers/subject");
-
+const parentRouter= require("./Routers/parent");
 const cors = require("cors");
 
 const app = express();
@@ -18,6 +18,8 @@ app.use("/api", sectionRouter);
 app.use("/api", academicYearRouter);
 app.use("/api", teacherController);
 app.use('/api',subjectRouter);
+app.use('/api',parentRouter);
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, async () => {

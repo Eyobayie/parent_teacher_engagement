@@ -7,7 +7,8 @@ router
   .post(teacherController.createTeacher);
 router
   .route("/teacher/:id")
-  .get(teacherController.getTeacher)
+  .get(teacherController.getTeacherDetails)
   .put(teacherController.updateTeacher)
   .delete(teacherController.deleteTeacher);
+
 module.exports = router;

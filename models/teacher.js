@@ -2,6 +2,7 @@ const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Gradelevel = require("./gradelevel");
 const Subject = require("./subject");
+const Attendance = require("./attendance");
 
 const Teacher = sequelize.define(
   "Teacher",
@@ -38,11 +39,15 @@ Subject.belongsToMany(Teacher, {
   constraints: false,
 });
 Teacher.belongsToMany(Subject, { through: "teacherSubject" });
+Teacher.hasMany(Attendance, {constraints:false});
+Attendance.belongsTo(Teacher);
 
 module.exports = Teacher;
 
 // ATTENDANCECE, RERISTER RESULT, CHAT with, REPORT FOR, ANNOUNCEMENT, VIEW ANNOUNCEMENT,
-// DAILT ASSIGNMENT,
+// DAILT ASSIGNMENT, FOR TEACHERS
 // VIEW ATTENDANCE, RESULT, CHAT with, VIEW ANNOUNCEMENT, FOLLOWUP ASSIGNMENT, 
+// FOR PARENTS
 
-// REGISTER Student, TEACHER, PARENT,GRADE,SECTION, ACADEMIC, CREATE ANNOUNCEMENT,REPORT ABOUT THE FileSystem,
+// System admin
+// Register Student, Teacher, Parent, Grade, Section, Academic, Create Announcement, REPORT ABOUT THE FileSystem, View help and make a response

@@ -1,6 +1,7 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Subject = require("./subject");
+const Attendance = require("./attendance");
 
 const Student = sequelize.define(
   "Student",
@@ -27,5 +28,6 @@ Student.belongsToMany(Subject, {
   constraints: false,
 });
 Subject.belongsToMany(Student, { through: "studentSubject" });
-
+Student.hasMany(Attendance, {constraints:false});
+Attendance.belongsTo(Student);
 module.exports = Student;

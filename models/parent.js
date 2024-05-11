@@ -1,6 +1,7 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Student = require("./student");
+const Help = require("./help");
 
 const Parent = sequelize.define(
   "Parent",
@@ -32,5 +33,8 @@ const Parent = sequelize.define(
 
 Parent.hasMany(Student,{constraints:false})
 Student.belongsTo(Parent);
+
+Parent.hasMany(Help,{constraints:false});
+Help.belongsTo(Parent);
 
 module.exports = Parent;

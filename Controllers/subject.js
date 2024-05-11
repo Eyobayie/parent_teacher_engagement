@@ -6,7 +6,7 @@ exports.subjects = async (req, res) => {
     if (!subjects) {
       return res.status(200).json({
         success: true,
-        message: "Subjects is not available!",
+        message: "Subjects is not available!!!",
       });
     }
     res.status(200).json(subjects);

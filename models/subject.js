@@ -1,5 +1,6 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
+const Assignment = require("./assignment");
 
 const Subject = sequelize.define(
   "Subject",
@@ -17,5 +18,8 @@ const Subject = sequelize.define(
     timestamps: false,
   }
 );
+
+Subject.hasMany(Assignment,{constraints:false});
+Assignment.belongsTo(Subject);
 
 module.exports = Subject;

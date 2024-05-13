@@ -26,4 +26,4 @@ const Assignment = sequelize.define(
   }
 );
 
-module.exports = Attendance;
+module.exports = Assignment;

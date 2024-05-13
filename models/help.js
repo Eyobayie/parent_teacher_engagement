@@ -9,6 +9,10 @@ const Help = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    date:{
+      type: DataTypes.DATE,
+      allowNull:false,
+    }
   },
   {
     timestamps: false,

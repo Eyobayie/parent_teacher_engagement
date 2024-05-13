@@ -18,49 +18,23 @@ exports.helps = async (req, res) => {
     });
   }
 };
-exports.help = async (req, res) => {
-    try {
-      const parentHelps = await Help.findAll({
-        where: {
-          ParentId: req.params.id,
-        },
-      });
-      if (!parentHelps) {
-        return res.status(200).json({
-          success: true,
-          message: "Parent is not available!",
-        });
-      }
-      res.status(200).json(parentHelps);
-    } catch (error) {
-      console.log("ATTENDANCE ERROR IS...", error);
-      res.status(500).json({
-        success: false,
-        message: "INTERNAL SERVER ERROR",
-      });
-    }
-  };
 
-exports.createAttendance = async (req, res) => {
+exports.help = async (req, res) => {
   try {
-    const data = req.body;
-    if (!data) {
-      return res
-        .status(200)
-        .json({
-          success: false,
-          message: "Please provide a attendance details",
-        });
-    }
-    await Attendance.create({
-      date: data.date,
-      isPresent: data.isPresent,
-      StudentId: data.StudentId,
-      TeacherId: data.TeacherId,
+    const parentHelps = await Help.findAll({
+      where: {
+        ParentId: req.params.id,
+      },
     });
-    res.status(200).json({ success: true, message: "Attendance is created!" });
+    if (!parentHelps) {
+      return res.status(200).json({
+        success: true,
+        message: "Parent is not available!",
+      });
+    }
+    res.status(200).json(parentHelps);
   } catch (error) {
-    console.log("CREATE Department ERROR IS...", error);
+    console.log("ATTENDANCE ERROR IS...", error);
     res.status(500).json({
       success: false,
       message: "INTERNAL SERVER ERROR",
@@ -68,18 +42,27 @@ exports.createAttendance = async (req, res) => {
   }
 };
 
-exports.getAttendance = async (req, res) => {
+exports.createHelp = async (req, res) => {
   try {
-    const attendance = await Attendance.findByPk(req.params.id);
-    if (!attendance) {
+    const data = req.body;
+    if (!data) {
       return res.status(200).json({
         success: false,
-        message: "Attendance is not available!!!",
+        message: "Please provide a attendance details",
       });
     }
-    res.status(200).json(attendance);
+
+    await Help.create({
+      date: data.date,
+      description: data.description,
+      ParentId: data.ParentId,
+    });
+    res.status(200).json({
+      success: true,
+      message: "Your help is posted!",
+    });
   } catch (error) {
-    console.log("GET ATTENDACNE ERROR IS...", error);
+    console.log("CREATE DEPARTMENT ERROR IS...", error);
     res.status(500).json({
       success: false,
       message: "INTERNAL SERVER ERROR",
@@ -89,7 +72,9 @@ exports.getAttendance = async (req, res) => {
 
 exports.deleteAttendance = async (req, res) => {
   try {
-    const attendance = await Attendance.findByPk(req.params.id);
+    const help = await Help.findOne({
+      where: {},
+    });
     if (!departmnet) {
       return res.status(200).json({
         success: false,
@@ -97,7 +82,10 @@ exports.deleteAttendance = async (req, res) => {
       });
     }
     await attendance.destroy();
-    res.status(200).json({ success: true, message: "Delete Successed!!!" });
+    res.status(200).json({
+      success: true,
+      message: "Delete Successed!!!",
+    });
   } catch (error) {
     console.log("DELETE BRANCH ERROR IS...", error);
     res.status(500).json({

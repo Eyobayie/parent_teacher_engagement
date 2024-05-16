@@ -3,7 +3,7 @@ const router = express.Router();
 const announcementController=require('../Controllers/announcement');
 router
   .route("/announcements")
-  .get(announcementController.announcementS)
+  .get(announcementController.announcements)
   .post(announcementController.createAnnouncement);
 router
   .route("/announcement/:id")

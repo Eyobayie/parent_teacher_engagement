@@ -1,15 +1,15 @@
-const Announcement = require("../models/announcement");
+const Announcement = require('../models/announcement');
 
-exports.announcementS = async (req, res) => {
+exports.announcements = async (req, res) => {
   try {
-    const announcement = await Announcement.findAll();
-    if (!announcement) {
+    const announcements = await Announcement.findAll();
+    if (!announcements) {
       return res.status(200).json({
         success: true,
         message: "Announcement is not available!",
       });
     }
-    res.status(200).json(announcement);
+    res.status(200).json(announcements);
   } catch (error) {
     console.log("DE[ARTMENT ERROR IS...", error);
     res.status(500).json({
@@ -28,7 +28,7 @@ exports.createAnnouncement = async (req, res) => {
         message: "Please provide a announcement detail",
       });
     }
-    await Department.create({
+    await Announcement.create({
       date: data.date,
       description: data.description,
       title: data.title,
@@ -37,7 +37,7 @@ exports.createAnnouncement = async (req, res) => {
       .status(200)
       .json({ success: true, message: "Announcement is created!" });
   } catch (error) {
-    console.log("CREATE Department ERROR IS...", error);
+    console.log("CREATE ANNOUNCEMENT ERROR IS...", error);
     res.status(500).json({
       success: false,
       message: "INTERNAL SERVER ERROR",
@@ -67,13 +67,13 @@ exports.getAnnouncement = async (req, res) => {
 exports.deleteAnnouncement = async (req, res) => {
   try {
     const announcement = await Announcement.findByPk(req.params.id);
-    if (!departmnet) {
+    if (!announcement) {
       return res.status(200).json({
         success: false,
         message: "Announcement is not available!!!",
       });
     }
-    await departmnet.destroy();
+    await announcement.destroy();
     res.status(200).json({ success: true, message: "Delete Successed!!!" });
   } catch (error) {
     console.log("DELETE ANNOUNCEMENT ERROR IS...", error);
@@ -96,7 +96,7 @@ exports.updateAnnouncement = async (req, res) => {
       {
         date: data.date,
         description: data.description,
-        title: data.announcement,
+        title: data.title,
       },
       { where: { id: req.params.id } }
     );

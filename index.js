@@ -21,8 +21,8 @@ app.use("/api", academicYearRouter);
 app.use("/api", teacherController);
 app.use('/api',subjectRouter);
 app.use('/api',parentRouter);
-app.use('api',attendanceRouter);
-app.use('api',announcementRouter);
+app.use('/api',attendanceRouter);
+app.use('/api',announcementRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {

@@ -1,5 +1,4 @@
-const Announcement = require('../models/announcement');
-
+const Announcement= require('../models/announcement');
 exports.announcements = async (req, res) => {
   try {
     const announcements = await Announcement.findAll();

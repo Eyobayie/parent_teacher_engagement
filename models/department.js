@@ -7,12 +7,12 @@ const Department = sequelize.define(
   {
     name: {
       type: DataTypes.STRING,
-      allowNull:false,
+      allowNull: false,
     },
-    description:{
-      type:DataTypes.STRING(300),
-      allowNull:true,
-    }
+    description: {
+      type: DataTypes.STRING(300),
+      allowNull: true,
+    },
   },
   {
     timestamps: false,
@@ -20,9 +20,9 @@ const Department = sequelize.define(
 );
 
 Department.belongsToMany(Teacher, {
-  through:"departmentTeacher",
-  constraints:false});
-Teacher.belongsToMany(Department, {through:"departmentTeacher"});
-
+  through: "departmentTeacher",
+  constraints: false,
+});
+Teacher.belongsToMany(Department, { through: "departmentTeacher" });
 
 module.exports = Department;

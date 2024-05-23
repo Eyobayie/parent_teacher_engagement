@@ -27,7 +27,7 @@ exports.createAcademicYear = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Please provide a academic year" });
     }
-    await Department.create({ year: data.year, description: data.description });
+    await AcademicYear.create({ year: data.year, description: data.description });
     res.status(200).json({ success: true, message: "Academic Year is created!" });
   } catch (error) {
     console.log("CREATE ACADEMIC YEAR ERROR IS...", error);

@@ -8,6 +8,10 @@ const HelpResponse = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    }
   },
   {
     timestamps: false,

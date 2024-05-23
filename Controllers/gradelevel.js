@@ -20,6 +20,44 @@ exports.gradelevels = async (req, res) => {
     });
   }
 };
+
+exports.allGradesWithSection = async (req, res, next) => {
+  try {
+    const gradeWithSection = await Gradelevel.findAll({
+      include: {
+        model: Section,
+        as: 'Sections' // Ensure the alias is correct in your model definitions
+      },
+    });
+
+    if (!gradeWithSection) {
+      return res.status(404).json({ success: false, message: 'No gradelevel with section available' });
+    }
+
+    // Transform the data to the required structure
+    const transformedData = gradeWithSection.map(grade => ({
+      id: grade.id,
+      grade: grade.grade,
+      description: grade.description,
+      Sections: grade.Sections.map(section => ({
+        id: section.id,
+        name: section.name,
+        description: section.description,
+        GradelevelId: section.GradelevelId,
+        AcademicYearId: section.AcademicYearId
+      }))
+    }));
+
+    res.status(200).json(transformedData);
+  } catch (error) {
+    console.log("FETCH GRADELEVEL WITH SECTION ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+};
+
 exports.createGradelevel = async (req, res) => {
   try {
     const data = req.body;

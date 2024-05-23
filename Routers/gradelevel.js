@@ -14,5 +14,7 @@ router
 router
   .route("/gradelevel/:id/sections")
   .get(gradelevelController.getGradelevelWithSections);
-
+router
+  .route('/gradewithsection')
+  .get(gradelevelController.allGradesWithSection); 
 module.exports = router;

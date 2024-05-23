@@ -1,4 +1,4 @@
-const Gradelevel = require("../models/gradelevel");
+const { where } = require("sequelize");
 const Student = require("../models/student");
 
 exports.students = async (req, res) => {
@@ -20,6 +20,30 @@ exports.students = async (req, res) => {
   }
 };
 
+exports.getStudentPerSection = async (req, res, next) => {
+  try {
+    const students = await Student.findAll({
+      where: {
+        GradelevelId: req.params.gradeLevelId,
+        SectionId: req.params.sectionId
+      }
+    });
+    if (!students || students.length === 0) {
+      return res.status(404).json({ 
+        success: false,
+        message: "No students are available in this section!!!",
+      });
+    }
+    res.status(200).json(students);
+  } catch (error) {
+    console.log("STUDENT PER SECTION ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+};
+
 exports.createsStudent = async (req, res) => {
   try {
     const data = req.body;
@@ -28,7 +52,7 @@ exports.createsStudent = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Please provide a parent info!" });
     }
-    await Parent.create({
+    await Student.create({
       firstname: data.firstname,
       email: data.email,
       phone: data.phone,
@@ -88,7 +112,7 @@ exports.updateStudent = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Please Insert parent" });
     }
-    await Parent.update(
+    await Student.update(
       {
         firstname: data.firstname,
         email: data.email,

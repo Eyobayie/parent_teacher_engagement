@@ -1,10 +1,9 @@
 const Help = require("../models/help");
 const HelpResponse = require("../models/help_response");
 
-exports.helps = async (req, res) => {
+exports.helpResponses = async (req, res) => {
   try {
-    const helps = await Help.findAll({
-    });
+    const helps = await HelpResponse.findAll();  
     if (!helps) {
       return res.status(200).json({
         success: true,
@@ -20,50 +19,21 @@ exports.helps = async (req, res) => {
     });
   }
 };
-exports.helpsWithResponsesByParentId = async (req, res) => {
-  try {
-    const helpsWithResponses = await Help.findAll({
-      include: [{
-        model: HelpResponse,
-        attributes: {
-          exclude: ['HelpId']
-        }
-      }],
-      where: {
-        ParentId: req.params.parentId,
-      }
-    });
-    if (!helpsWithResponses) {
-      return res.status(200).json({
-        success: true,
-        message: "Help is not available!",
-      });
-    }
-    res.status(200).json(helpsWithResponses);
-  } catch (error) {
-    console.log("HELP ERROR IS...", error);
-    res.status(500).json({
-      success: false,
-      message: "INTERNAL SERVER ERROR",
-    });
-  }
-};
 
-
-exports.help = async (req, res) => {
+exports.helpresponse = async (req, res) => {
   try {
-    const parentHelp = await Help.findOne({
+    const parentHelp = await Help.findAll({
       where: {
         ParentId: req.params.id,
       },
     });
-    if (!parentHelp) {
+    if (!parentHelps) {
       return res.status(200).json({
         success: true,
         message: "Parent is not available!",
       });
     }
-    res.status(200).json(parentHelp);
+    res.status(200).json(parentHelps);
   } catch (error) {
     console.log("ATTENDANCE ERROR IS...", error);
     res.status(500).json({
@@ -73,7 +43,7 @@ exports.help = async (req, res) => {
   }
 };
 
-exports.createHelp = async (req, res) => {
+exports.createResponse = async (req, res) => {
   try {
     const data = req.body;
     if (!data) {
@@ -83,17 +53,17 @@ exports.createHelp = async (req, res) => {
       });
     }
 
-    await Help.create({
+    await HelpResponse.create({
       date: data.date,
       description: data.description,
-      ParentId: data.ParentId,
+      HelpId: data.HelpId,
     });
     res.status(200).json({
       success: true,
-      message: "Your help is posted!",
+      message: "Your help  response is posted!",
     });
   } catch (error) {
-    console.log("CREATE DEPARTMENT ERROR IS...", error);
+    console.log("CREATE RESPONSE ERROR IS...", error);
     res.status(500).json({
       success: false,
       message: "INTERNAL SERVER ERROR",
@@ -101,18 +71,18 @@ exports.createHelp = async (req, res) => {
   }
 };
 
-exports.deleteHelp = async (req, res) => {
+exports.deleteHelpResponse = async (req, res) => {
   try {
-    const help = await Help.findOne({
-      where: {},
+    const response = await HelpResponse.findOne({
+      where: {id:req.params.id},
     });
-    if (!departmnet) {
+    if (!response) {
       return res.status(200).json({
         success: false,
-        message: "Attencance is not available!!!",
+        message: "Response is not available!!!",
       });
     }
-    await help.destroy();
+    await response.destroy();
     res.status(200).json({
       success: true,
       message: "Delete Successed!!!",
@@ -126,15 +96,15 @@ exports.deleteHelp = async (req, res) => {
   }
 };
 
-exports.updateHelp = async (req, res) => {
+exports.updateHelpResponse = async (req, res) => {
   try {
     const data = req.body;
     if (!data) {
       return res
         .status(200)
-        .json({ success: false, message: "Please Insert Attencance" });
+        .json({ success: false, message: "Please Insert response" });
     }
-    await Help.update(
+    await HelpResponse.update(
       { date: data.date, description: data.description},
       { where: { id: req.params.id } }
     );

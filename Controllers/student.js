@@ -50,7 +50,10 @@ exports.createsStudent = async (req, res) => {
     if (!data) {
       return res
         .status(200)
-        .json({ success: false, message: "Please provide a parent info!" });
+        .json({
+           success: false, 
+           message: "Please provide a parent info!" 
+          });
     }
     await Student.create({
       firstname: data.firstname,
@@ -60,6 +63,7 @@ exports.createsStudent = async (req, res) => {
       GradelevelId:data.GradelevelId,
       SectionId:data.SectionId
     });
+    console.log('STUDENT DATA IS ..............',data);
     res.status(200).json({ success: true, message: "Student is registered!" });
   } catch (error) {
     console.log("STUDENT REGISTRATION ERROR IS...", error);

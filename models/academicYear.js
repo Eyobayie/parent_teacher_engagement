@@ -1,18 +1,19 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Section = require("./section");
+const Semister = require("./semister");
 
 const AcademicYear = sequelize.define(
   "AcademicYear",
   {
     year: {
       type: DataTypes.INTEGER,
-      allowNull:false,
+      allowNull: false,
     },
-    description:{
-      type:DataTypes.STRING(300),
-      allowNull:true,
-    }
+    description: {
+      type: DataTypes.STRING(300),
+      allowNull: true,
+    },
   },
   {
     timestamps: false,
@@ -20,7 +21,11 @@ const AcademicYear = sequelize.define(
 );
 
 AcademicYear.hasMany(Section, {
-  constraints:false});
+  constraints: false,
+});
 Section.belongsTo(AcademicYear);
+
+AcademicYear.hasMany(Semister, { constraints: false });
+Semister.belongsTo(AcademicYear);
 
 module.exports = AcademicYear;

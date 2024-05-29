@@ -11,7 +11,8 @@ const attendanceRouter= require("./Routers/attendance");
 const announcementRouter= require('./Routers/announcement');
 const studentRouter= require('./Routers/student');
 const helpRouter= require('./Routers/help');
-const helpResponseRouter= require('./Routers/help_response')
+const helpResponseRouter= require('./Routers/help_response');
+const semisterRouter= require('./Routers/semister');
 const cors = require("cors");
 
 const app = express();
@@ -30,6 +31,7 @@ app.use('/api',announcementRouter);
 app.use('/api',studentRouter);
 app.use('/api',helpRouter);
 app.use('/api',helpResponseRouter);
+app.use('/api',semisterRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {

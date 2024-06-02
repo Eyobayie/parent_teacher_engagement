@@ -1,6 +1,7 @@
 const express= require('express')
+const assignmentController= require('../Controllers/assignment');
+
 const router= express.Router();
-const assignmentController= require('../Routers/teacher_assignment');
 
 router
     .route('/assignmets')

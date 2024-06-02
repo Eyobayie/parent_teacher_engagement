@@ -10,12 +10,13 @@ const Help = sequelize.define(
       allowNull: false,
     },
     date:{
-      type: DataTypes.DATE,
+      type: DataTypes.DATEONLY,
       allowNull:false,
     }
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

@@ -16,6 +16,7 @@ const Section = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

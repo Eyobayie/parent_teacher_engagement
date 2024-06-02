@@ -16,6 +16,7 @@ const Department = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

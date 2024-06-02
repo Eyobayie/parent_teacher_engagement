@@ -17,6 +17,7 @@ const AcademicYear = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

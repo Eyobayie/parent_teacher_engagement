@@ -21,6 +21,7 @@ const Student = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 Student.belongsToMany(Subject, {

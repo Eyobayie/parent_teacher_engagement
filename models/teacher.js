@@ -25,6 +25,7 @@ const Teacher = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

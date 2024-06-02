@@ -19,6 +19,7 @@ const Announcement = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

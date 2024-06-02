@@ -1,9 +1,18 @@
 const { sequelize } = require("../db");
-const { DataTypes } = require("sequelize");
+const { DataTypes, TINYINT } = require("sequelize");
 
 const Assignment = sequelize.define(
   "Assignment",
   {
+    title:{
+      type:DataTypes.STRING,
+      allowNull:false,
+
+    },
+    description:{
+      type:DataTypes.TEXT,
+      allowNull:false,
+    },
     givenDate: {
       type: DataTypes.DATE,
       allowNull: false,
@@ -12,18 +21,15 @@ const Assignment = sequelize.define(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    isNew: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-    },
     isDone: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
+
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
-
 module.exports = Assignment;

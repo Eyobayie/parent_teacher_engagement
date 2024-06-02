@@ -28,6 +28,7 @@ const Parent = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

@@ -15,6 +15,7 @@ const Attendance = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

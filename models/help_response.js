@@ -15,6 +15,7 @@ const HelpResponse = sequelize.define(
   },
   {
     timestamps: false,
+    freezeTableName:true
   }
 );
 

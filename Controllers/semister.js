@@ -100,8 +100,6 @@ exports.semisterByAcademicYearAndSemisterId= async (req, res)=>{
             message:'INTERNAL SERVER ERROR',
         })
     }
-  
-
 }
 
 exports.deleteSemister = async (req, res) => {

@@ -103,3 +103,20 @@ exports.updateSubject = async (req, res) => {
     res.status(500).json({ success: false, message: "INTERNAL SERVER ERROR" });
   }
 };
+
+exports.subjectByGradelevelId = async (req, res) => {
+  try {
+    const subjects = await Subject.findAll({
+      where: {
+        GradelevelId: req.params.gradelevelId,
+      },
+    });
+    if (!subjects.length) {
+      return res.status(200).json({ success: false, message: 'There are no subjects in this grade.' });
+    }
+    res.status(200).json(subjects);
+  } catch (error) {
+    console.log("ERROR GETTING SUBJECTS BY GRADELEVEL ID:", error);
+    res.status(500).json({ success: false, message: 'INTERNAL SERVER ERROR' });
+  }
+};

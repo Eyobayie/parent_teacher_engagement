@@ -29,6 +29,7 @@ exports.createAssignment = async (req, res) => {
       });
     }
     await Assignment.create({
+      SubjectId:data.SubjectId,
       title: data.title,
       description: data.description,
       givenDate: data.givenDate,
@@ -75,6 +76,7 @@ exports.updateAssignment = async (req, res) => {
     }
     await Assignment.update(
       {
+        SubjectId:data.SubjectId,
         title: data.title,
         description: data.description,
         givenDate: data.givenDate,

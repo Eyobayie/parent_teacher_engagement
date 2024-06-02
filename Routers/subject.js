@@ -10,5 +10,8 @@ router
   .get(subjectController.getSubject)
   .put(subjectController.updateSubject)
   .delete(subjectController.deleteSubject);
+router
+  .route('/subjectgradelevel/:gradelevelId')
+  .get(subjectController.subjectByGradelevelId);  
   
 module.exports = router;

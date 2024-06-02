@@ -4,7 +4,7 @@ const assignmentController= require('../Controllers/assignment');
 const router= express.Router();
 
 router
-    .route('/assignmets')
+    .route('/assignments')
     .get(assignmentController.assignments)
     .post(assignmentController.createAssignment);
 router
@@ -12,5 +12,4 @@ router
     .get(assignmentController.getAssignment)
     .put(assignmentController.updateAssignment)
     .delete(assignmentController.deleteAssignment);
-
 module.exports= router;

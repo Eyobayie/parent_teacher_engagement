@@ -14,6 +14,7 @@ const helpRouter= require('./Routers/help');
 const helpResponseRouter= require('./Routers/help_response');
 const semisterRouter= require('./Routers/semister');
 const teacherAssignmentRouter= require('./Routers/teacher_assignment');
+const assignmentRoter= require('./Routers/assignment');
 const cors = require("cors");
 
 const app = express();
@@ -34,10 +35,11 @@ app.use('/api', helpRouter);
 app.use('/api', helpResponseRouter);
 app.use('/api', semisterRouter);
 app.use('/api', teacherAssignmentRouter);
+app.use('/api', assignmentRoter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {
   await dbConnection();
-
+  
   console.log(`The server is running on port ${PORT}`);
 });

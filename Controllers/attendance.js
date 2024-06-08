@@ -4,7 +4,7 @@ exports.attendances = async (req, res) => {
   try {
     const attendances = await Attendance.findAll({
       where: {
-        StudentId: req.params.id,
+        StudentId: req.params.studentId,
       },
     });
     if (!attendances) {
@@ -40,7 +40,7 @@ exports.createAttendance = async (req, res) => {
       StudentId: data.StudentId,
       TeacherId: data.TeacherId,
     });
-    res.status(200).json({ success: true, message: "Attendance is created!" });
+    res.status(200).json({ success: true, message: "Attendance is created!!!" });
   } catch (error) {
     console.log("CREATE Department ERROR IS...", error);
     res.status(500).json({

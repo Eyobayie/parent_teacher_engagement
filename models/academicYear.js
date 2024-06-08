@@ -2,6 +2,7 @@ const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Section = require("./section");
 const Semister = require("./semister");
+const ResultPercentage = require("./result_percentage");
 
 const AcademicYear = sequelize.define(
   "AcademicYear",
@@ -17,7 +18,7 @@ const AcademicYear = sequelize.define(
   },
   {
     timestamps: false,
-    freezeTableName:true
+    freezeTableName: true,
   }
 );
 

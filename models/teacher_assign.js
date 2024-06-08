@@ -6,27 +6,31 @@ const TeacherAssignment = sequelize.define(
   {
     AcademicYearId: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     SemisterId: {
       type: DataTypes.INTEGER,
-      allowNull: true,
+      allowNull: false,
     },
     DepartmentID: {
         type: DataTypes.INTEGER,
-        allowNull: true,
+        allowNull: false,
       },
     SubjectId:{
         type:DataTypes.INTEGER,
-        allowNull:true,
+        allowNull:false,
     },
     GradelevelId:{
         type:DataTypes.INTEGER,
-        allowNull:true,
+        allowNull:false,
     },
     SectionId:{
         type:DataTypes.INTEGER,
-        allowNull:true,
+        allowNull:false,
+    },
+    TeacherId:{
+      type:DataTypes.INTEGER,
+      allowNull:false,
     }
   },
   {

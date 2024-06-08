@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const Parent = require("../models/parent");
 const Student = require("../models/student");
 
 exports.students = async (req, res) => {
@@ -23,6 +23,7 @@ exports.students = async (req, res) => {
 exports.getStudentPerSection = async (req, res, next) => {
   try {
     const students = await Student.findAll({
+      include:[Parent],
       where: {
         GradelevelId: req.params.gradeLevelId,
         SectionId: req.params.sectionId

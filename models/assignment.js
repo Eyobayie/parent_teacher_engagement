@@ -7,7 +7,6 @@ const Assignment = sequelize.define(
     title:{
       type:DataTypes.STRING,
       allowNull:false,
-
     },
     description:{
       type:DataTypes.TEXT,

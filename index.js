@@ -15,6 +15,7 @@ const helpResponseRouter= require('./Routers/help_response');
 const semisterRouter= require('./Routers/semister');
 const teacherAssignmentRouter= require('./Routers/teacher_assignment');
 const assignmentRoter= require('./Routers/assignment');
+const resultPercentageRouter= require('./Routers/result_percentage');
 const cors = require("cors");
 
 const app = express();
@@ -36,6 +37,7 @@ app.use('/api', helpResponseRouter);
 app.use('/api', semisterRouter);
 app.use('/api', teacherAssignmentRouter);
 app.use('/api', assignmentRoter);
+app.use('/api', resultPercentageRouter);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, async () => {

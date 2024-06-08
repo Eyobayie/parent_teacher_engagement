@@ -28,7 +28,7 @@ exports.createAnnouncement = async (req, res) => {
       });
     }
     await Announcement.create({
-      date: data.date,
+      date: Date.now(),
       description: data.description,
       title: data.title,
     });
@@ -93,7 +93,7 @@ exports.updateAnnouncement = async (req, res) => {
     }
     await Announcement.update(
       {
-        date: data.date,
+        date: Date.now(),
         description: data.description,
         title: data.title,
       },

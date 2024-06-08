@@ -17,4 +17,5 @@ router
 router
   .route('/gradewithsection')
   .get(gradelevelController.allGradesWithSection); 
+  
 module.exports = router;

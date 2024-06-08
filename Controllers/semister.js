@@ -5,7 +5,7 @@ exports.semisters = async (req, res) => {
     const semisters = await Semister.findAll();
     if (!semisters) {
       return res.status(200).json({
-        success: true,
+        success: false,
         message: "Semister is not available!",
       });
     }

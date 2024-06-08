@@ -34,12 +34,7 @@ exports.createAttendance = async (req, res) => {
           message: "Please provide a attendance details",
         });
     }
-    await Attendance.create({
-      date: data.date,
-      isPresent: data.isPresent,
-      StudentId: data.StudentId,
-      TeacherId: data.TeacherId,
-    });
+    await Attendance.bulkCreate(data);
     res.status(200).json({ success: true, message: "Attendance is created!!!" });
   } catch (error) {
     console.log("CREATE Department ERROR IS...", error);

@@ -27,7 +27,12 @@ exports.createResultPercentage = async (req, res) => {
         .status(200)
         .json({ success: false, message: "Please provide a result percentage info" });
     }
-    await ResultPercentage.create({ name: data.name, percentage: data.percentage, academicYearId:data.academicYearId });
+    await ResultPercentage.create({ 
+      name: data.name, 
+      percentage: data.percentage,
+       academicYearId:data.academicYearId,
+      semisterId:data.semisterId,
+      });
     res.status(200).json({ success: true, message: "Result percentage is created!" });
   } catch (error) {
     console.log("CREATE RESULT ERROR IS...", error);

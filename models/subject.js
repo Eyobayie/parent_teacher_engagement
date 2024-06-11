@@ -1,6 +1,7 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Assignment = require("./assignment");
+const StudentResult = require("./student_result");
 
 const Subject = sequelize.define(
   "Subject",
@@ -20,7 +21,10 @@ const Subject = sequelize.define(
   }
 );
 
-Subject.hasMany(Assignment,{constraints:false});
-Assignment.belongsTo(Subject);
+// Subject.hasMany(Assignment,{constraints:false});
+// Assignment.belongsTo(Subject);
+
+// Subject.hasMany(StudentResult,{ foreignKey: 'SubjectId' });
+// StudentResult.belongsTo(Subject);
 
 module.exports = Subject;

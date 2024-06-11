@@ -29,19 +29,19 @@ const Teacher = sequelize.define(
   }
 );
 
-Teacher.belongsToMany(Gradelevel, {
-  through: "teacherGradelevel",
-  constraints: false,
-});
-Gradelevel.belongsToMany(Teacher, { through: "teacherGradelevel" });
+// Teacher.belongsToMany(Gradelevel, {
+//   through: "teacherGradelevel",
+//   constraints: false,
+// });
+// Gradelevel.belongsToMany(Teacher, { through: "teacherGradelevel" });
 
-Subject.belongsToMany(Teacher, {
-  through: "teacherSubject",
-  constraints: false,
-});
-Teacher.belongsToMany(Subject, { through: "teacherSubject" });
-Teacher.hasMany(Attendance, {constraints:false});
-Attendance.belongsTo(Teacher);
+// Subject.belongsToMany(Teacher, {
+//   through: "teacherSubject",
+//   constraints: false,
+// });
+// Teacher.belongsToMany(Subject, { through: "teacherSubject" });
+// Teacher.hasMany(Attendance, {constraints:false});
+// Attendance.belongsTo(Teacher);
 
 module.exports = Teacher;
 

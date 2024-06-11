@@ -2,6 +2,7 @@ const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
 const Subject = require("./subject");
 const Attendance = require("./attendance");
+const StudentResult = require("./student_result");
 
 const Student = sequelize.define(
   "Student",
@@ -24,11 +25,15 @@ const Student = sequelize.define(
     freezeTableName:true
   }
 );
-Student.belongsToMany(Subject, {
-  through: "studentSubject",
-  constraints: false,
-});
-Subject.belongsToMany(Student, { through: "studentSubject" });
-Student.hasMany(Attendance, {constraints:false});
-Attendance.belongsTo(Student);
+// Student.belongsToMany(Subject, {
+//   through: "studentSubject",
+//   constraints: false,
+// });
+// Subject.belongsToMany(Student, { through: "studentSubject" });
+// Student.hasMany(Attendance, {constraints:false});
+// Attendance.belongsTo(Student);
+
+// Student.hasMany(StudentResult,{ foreignKey: 'StudentId' });
+// StudentResult.belongsTo(Student);
+
 module.exports = Student;

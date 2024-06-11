@@ -1,6 +1,7 @@
 const { sequelize } = require("../db");
 const { DataTypes, Op } = require("sequelize");
 
+
 const ResultPercentage = sequelize.define(
   "ResultPercentage",
   {
@@ -19,6 +20,14 @@ const ResultPercentage = sequelize.define(
         key: 'id',
       },
       allowNull: false,
+    },
+    semisterId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Semister',
+        key: 'id',
+      },
+      allowNull: false,
     }
   },
   {
@@ -32,6 +41,7 @@ ResultPercentage.addHook('beforeValidate', async (resultPercentage, options) => 
   const totalPercentage = await ResultPercentage.sum('percentage', {
     where: {
       academicYearId: resultPercentage.academicYearId,
+      semisterId: resultPercentage.semisterId,
       id: { [Op.not]: resultPercentage.id } // Exclude the current record if updating
     }
   });
@@ -39,5 +49,13 @@ ResultPercentage.addHook('beforeValidate', async (resultPercentage, options) => 
     throw new Error("The sum of percentage values for the academic year cannot exceed 100");
   }
 });
+
+// ResultPercentage.hasMany(StudentResult, { foreignKey: 'ResultPercentageId', constraints:false })
+// StudentResult.belongsTo(AcademicYear);
+// AcademicYear.hasMany(ResultPercentage, { foreignKey: 'academicYearId', constraints: false });
+// ResultPercentage.belongsTo(AcademicYear, { foreignKey: 'academicYearId', as: 'academicYear' });
+
+// ResultPercentage.hasMany(StudentResult, { foreignKey: 'resultPercentageId', constraints: false });
+// StudentResult.belongsTo(ResultPercentage, { foreignKey: 'resultPercentageId' });
 
 module.exports = ResultPercentage;

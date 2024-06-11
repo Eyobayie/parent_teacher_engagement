@@ -32,10 +32,10 @@ const Parent = sequelize.define(
   }
 );
 
-Parent.hasMany(Student,{constraints:false})
-Student.belongsTo(Parent);
+// Parent.hasMany(Student,{constraints:false})
+// Student.belongsTo(Parent);
 
-Parent.hasMany(Help,{constraints:false});
-Help.belongsTo(Parent);
+// Parent.hasMany(Help,{constraints:false});
+// Help.belongsTo(Parent);
 
 module.exports = Parent;

@@ -20,7 +20,6 @@ const Help = sequelize.define(
   }
 );
 
-Help.hasMany(HelpResponse,{constraints:false});
-HelpResponse.belongsTo(Help);
+
 
 module.exports = Help;

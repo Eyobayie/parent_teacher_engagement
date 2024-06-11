@@ -16,6 +16,22 @@ const semisterRouter= require('./Routers/semister');
 const teacherAssignmentRouter= require('./Routers/teacher_assignment');
 const assignmentRoter= require('./Routers/assignment');
 const resultPercentageRouter= require('./Routers/result_percentage');
+const studentResultRouter= require('./Routers/student_result');
+const {  AcademicYear,
+  Assignment,
+  Teacher,
+  Attendance,
+  HelpResponse,
+  Gradelevel,
+  Section,
+  Help,
+  Parent,
+  ResultPercentage,
+  Semister,
+  Student,
+  Subject,
+  StudentResult}=require('./models/model_association'); // This line ensures associations are set up
+
 const cors = require("cors");
 
 const app = express();
@@ -38,10 +54,10 @@ app.use('/api', semisterRouter);
 app.use('/api', teacherAssignmentRouter);
 app.use('/api', assignmentRoter);
 app.use('/api', resultPercentageRouter);
+app.use('/api', studentResultRouter);
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 4000;
 app.listen(PORT, async () => {
   await dbConnection();
-  
   console.log(`The server is running on port ${PORT}`);
 });

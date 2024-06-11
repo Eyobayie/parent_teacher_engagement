@@ -1,6 +1,6 @@
 const { Sequelize } = require("sequelize");
 
-const sequelize = new Sequelize("PTE", "root", "", {
+const sequelize = new Sequelize("PTES", "root", "", {
   dialect: "mysql",
   host: "localhost",
 });
@@ -16,6 +16,7 @@ const dbConnection = async () => {
 
 sequelize.sync(
     { force: false,
+       alter:false,
     freezeTableName: true }).then(() => {
   console.log("Database and tables synced!!!");
 });

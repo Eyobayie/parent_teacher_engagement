@@ -22,13 +22,13 @@ const Gradelevel = sequelize.define(
   }
 );
 
-Gradelevel.hasMany(Section,{constraints:false});
-Section.belongsTo(Gradelevel);
+// Gradelevel.hasMany(Section,{constraints:false});
+// Section.belongsTo(Gradelevel);
 
-Gradelevel.hasOne(Student,{constraints:false});
-Student.belongsTo(Gradelevel);
+// Gradelevel.hasOne(Student,{constraints:false});
+// Student.belongsTo(Gradelevel);
 
-Gradelevel.hasMany(Subject, {constraints:false});
-Subject.belongsTo(Gradelevel);
+// Gradelevel.hasMany(Subject, {constraints:false});
+// Subject.belongsTo(Gradelevel);
 
 module.exports = Gradelevel;

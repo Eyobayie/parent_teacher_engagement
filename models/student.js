@@ -25,15 +25,5 @@ const Student = sequelize.define(
     freezeTableName:true
   }
 );
-// Student.belongsToMany(Subject, {
-//   through: "studentSubject",
-//   constraints: false,
-// });
-// Subject.belongsToMany(Student, { through: "studentSubject" });
-// Student.hasMany(Attendance, {constraints:false});
-// Attendance.belongsTo(Student);
-
-// Student.hasMany(StudentResult,{ foreignKey: 'StudentId' });
-// StudentResult.belongsTo(Student);
 
 module.exports = Student;

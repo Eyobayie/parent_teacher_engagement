@@ -1,8 +1,8 @@
 const ResultPercentage = require("../models/result_percentage");
-
 exports.resultPercentages = async (req, res) => {
   try {
     const resultPercentages = await ResultPercentage.findAll();
+
     if (!resultPercentages) {
       return res.status(200).json({
         success: true,
@@ -18,6 +18,31 @@ exports.resultPercentages = async (req, res) => {
     });
   }
 };
+
+
+exports.resultPercentagePerYear= async (req, res)=>{
+  try {
+    const resultPercentagePerYear= await ResultPercentage.findAll({
+      where:{
+        academicYearId:req.params.academicYearId,
+      }
+    })
+    if(!resultPercentagePerYear){
+      return res.status(200).json({
+        success: true,
+        message: "Result percentage is not available!",
+      });
+    }
+    res.status(200).json(resultPercentagePerYear);
+
+  } catch (error) {
+    console.log("RESULT PERCENTAGE ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+}
 
 exports.createResultPercentage = async (req, res) => {
   try {

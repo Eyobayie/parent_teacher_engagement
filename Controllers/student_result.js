@@ -58,17 +58,19 @@ exports.getResults = async (req, res) => {
 
 
 exports.createResult = async (req, res) => {
+  const data = req.body;
   try {
-    const data = req.body;
 
-    console.log(" STUDENT RESULT IS....",data);
+    console.log(" STUDENT RESULT IS....", data);
     if (!data) {
       return res.status(400).json({
         success: false,
         message: "Please provide result details.",
       });
     }
-    await StudentResult.create({
+    await StudentResult.create(
+      { where:{ StudentId:req.params.studentId}},
+      {
       result:data.result,
       ResultType: data.ResultType,
       ResultPercentageId:data.ResultPercentageId,
@@ -76,13 +78,13 @@ exports.createResult = async (req, res) => {
       SemisterId: data.SemisterId,
       SubjectId:data.SubjectId,
       StudentId:data.StudentId,
-  //     result: 30,
-  // ResultType: "Final",
-  // ResultPercentageId: 1,
-  // AcademicYearId: 1,
-  // SemisterId: 2,
-  // SubjectId: 1,
-  // StudentId: 1
+      // result: 5,
+      // ResultType: "assignment",
+      // ResultPercentageId: 6,
+      // AcademicYearId: 1,
+      // SemisterId: 2,
+      // SubjectId: 1,
+      // StudentId: 1
     });
     res.status(200).json({ success: true, message: "Result created successfully!" });
   } catch (error) {

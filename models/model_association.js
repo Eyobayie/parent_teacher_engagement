@@ -27,9 +27,6 @@ Section.belongsTo(AcademicYear);
 ResultPercentage.hasMany(StudentResult, { constraints: false });
 StudentResult.belongsTo(ResultPercentage);
 
-// Semister.hasMany(ResultPercentage, { constraints: false });
-// ResultPercentage.belongsTo(Semister);
-
 Semister.hasMany(StudentResult, { constraints: false });
 StudentResult.belongsTo(Semister);
 

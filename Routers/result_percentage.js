@@ -12,5 +12,8 @@ router
      .get(resultPercentageController.getResultPercentage)
      .delete(resultPercentageController.deleteResultPercentage)
      .put(resultPercentageController.updateResultPercentage);
+router
+     .route('/result-percentages/:academicYearId')
+     .get(resultPercentageController.resultPercentagePerYear);    
    
 module.exports= router;

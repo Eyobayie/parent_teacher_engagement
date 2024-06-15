@@ -25,8 +25,8 @@ StudentResult.addHook('beforeValidate', async (studentResult, options) => {
   console.log("StudentResult data:", studentResult);
 
   const resultPercentage = await ResultPercentage.findOne({
-    where: { 
-      id: studentResult.ResultPercentageId, 
+    where: {
+      id: studentResult.ResultPercentageId,
       academicYearId: studentResult.AcademicYearId,
       semisterId: studentResult.SemisterId,
     }
@@ -56,6 +56,7 @@ StudentResult.addHook('beforeValidate', async (studentResult, options) => {
     throw new Error("The cumulative result percentage for the student in this semester exceeds the allowed percentage for the academic year and semester");
   }
 });
+
 
 
 module.exports = StudentResult;

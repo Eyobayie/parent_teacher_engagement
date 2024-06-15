@@ -1,8 +1,5 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
-const Gradelevel = require("./gradelevel");
-const Subject = require("./subject");
-const Attendance = require("./attendance");
 
 const Teacher = sequelize.define(
   "Teacher",
@@ -15,6 +12,10 @@ const Teacher = sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    username:{
+      type: DataTypes.STRING,
+      allowNull:false,
+    },
     email: {
       type: DataTypes.STRING,
     },
@@ -22,6 +23,11 @@ const Teacher = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    role:{
+      type:DataTypes.STRING,
+      allowNull:false,
+      defaultValue:'teacher',
+    }
   },
   {
     timestamps: false,

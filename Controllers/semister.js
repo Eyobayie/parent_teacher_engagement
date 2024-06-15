@@ -90,7 +90,8 @@ exports.semisterByAcademicYearAndSemisterId= async (req, res)=>{
     if(!semister){
         return res.status(200).json({
             success:false, 
-            message:'semister is not available'});
+            message:'semister is not available'
+          });
     }
     res.status(200).json(semister);     
     } catch (error) {
@@ -131,7 +132,7 @@ exports.updateSemister = async (req, res) => {
         .json({ success: false, message: "Please Insert Semister info" });
     }
     await Semister.update(
-      { name: data.name, description:data.description },
+      { name: data.name, description:data.description, AcademicYearId:data.AcademicYearId },
       { where: { id: req.params.id } }
     );
     res.status(200).json({ message: "Update success!!!" });

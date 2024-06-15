@@ -58,35 +58,30 @@ exports.getResults = async (req, res) => {
 
 
 exports.createResult = async (req, res) => {
-  const data = req.body;
-  try {
+  const { result, ResultType, ResultPercentageId, AcademicYearId, SemisterId, SubjectId } = req.body;
 
-    console.log(" STUDENT RESULT IS....", data);
-    if (!data) {
+  try {
+    console.log("STUDENT RESULT IS....", req.body);
+    if (!result || !ResultType || !ResultPercentageId || !AcademicYearId || !SemisterId || !SubjectId) {
       return res.status(400).json({
         success: false,
-        message: "Please provide result details.",
+        message: "Please provide all result details.",
       });
     }
-    await StudentResult.create(
-      { where:{ StudentId:req.params.studentId}},
-      {
-      result:data.result,
-      ResultType: data.ResultType,
-      ResultPercentageId:data.ResultPercentageId,
-      AcademicYearId:data.AcademicYearId,
-      SemisterId: data.SemisterId,
-      SubjectId:data.SubjectId,
-      StudentId:data.StudentId,
-      // result: 5,
-      // ResultType: "assignment",
-      // ResultPercentageId: 6,
-      // AcademicYearId: 1,
-      // SemisterId: 2,
-      // SubjectId: 1,
-      // StudentId: 1
+    const studentId = req.params.studentId;
+
+    const newResult = await StudentResult.create({
+      result: result,
+      ResultType: ResultType,
+      ResultPercentageId: ResultPercentageId,
+      AcademicYearId: AcademicYearId,
+      SemisterId: SemisterId,
+      SubjectId: SubjectId,
+      StudentId: studentId
+
     });
-    res.status(200).json({ success: true, message: "Result created successfully!" });
+
+    res.status(200).json({ success: true, message: "Result created successfully!", result: newResult });
   } catch (error) {
     console.log("Error creating result: ", error);
     res.status(500).json({

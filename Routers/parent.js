@@ -10,4 +10,7 @@ router
   .get(parentController.getParent)
   .put(parentController.updateParent)
   .delete(parentController.deleteParent);
+  router
+  .route('/login')
+  .post(parentController.login);  
 module.exports = router;

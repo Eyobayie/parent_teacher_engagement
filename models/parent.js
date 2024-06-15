@@ -14,6 +14,10 @@ const Parent = sequelize.define(
       type: DataTypes.STRING(50),
       allowNull: false,
     },
+    username: {
+      type: DataTypes.STRING,
+      allowNull:false
+    },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -25,6 +29,11 @@ const Parent = sequelize.define(
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+   rile:{
+    type:DataTypes.STRING,
+    allowNull:false,
+    defaultValue:'parent',
+   }
   },
   {
     timestamps: false,

@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const academicYearController=require('../Controllers/academicYear');
+const authenticateToken = require("../Auth/authentication_token");
 router
   .route("/academicyears")
   .get(academicYearController.academicyears)

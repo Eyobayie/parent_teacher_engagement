@@ -32,8 +32,10 @@ exports.createTeacher = async (req, res) => {
     await Teacher.create({
       firstname: data.firstname,
       lastname: data.lastname,
+      username: data.username,
       email: data.email,
       phone: data.phone,
+      role: data.role,
     });
     res.status(200).json({ success: true, message: "Teacher is created!" });
   } catch (error) {
@@ -92,8 +94,10 @@ exports.updateTeacher = async (req, res) => {
       {
         firstname: data.firstname,
         lastname: data.lastname,
+        username: data.username,
         email: data.email,
         phone: data.phone,
+        role: data.role,
       },
       { where: { id: req.params.id } }
     );

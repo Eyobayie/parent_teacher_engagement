@@ -1,10 +1,16 @@
 const { where } = require("sequelize");
 const Parent = require("../models/parent");
 const Teacher= require('../models/teacher');
+const bcrypt = require('bcryptjs');
+
 
 exports.parents = async (req, res) => {
   try {
-    const parents = await Parent.findAll();
+    const parents = await Parent.findAll({
+      attributes: {
+        exclude: ['password']
+      }
+    });
     if (!parents) {
       return res.status(200).json({
         success: true,
@@ -21,31 +27,45 @@ exports.parents = async (req, res) => {
   }
 };
 
-exports.login = async (req, res, next)=>{
+exports.login = async (req, res, next) => {
   try {
-    const {username, phone}= req.body;
-    const parentUser= await Parent.findOne({where: {username:username, phone:phone}});
-    const teacherUer= await Teacher.findOne({where:{username:username, phone:phone}});
-    if(!parentUser){
-      if(!teacherUer){
-        return res.status(401).json({ message: 'Invalid username or phone.' });
+    const { username, password } = req.body;
 
+    // Find parent or teacher user by username
+    const parentUser = await Parent.findOne({
+      where: { username: username },
+    });
+
+    const teacherUser = await Teacher.findOne({
+      where: { username: username },
+    });
+    let user = parentUser || teacherUser;
+    if(!parentUser){
+      if(!teacherUser){
+        res.status(404).json({message: "USER NOT FOUND"});
       }else{
-        return res.status(200).json(teacherUer);
-        // const token = jwt.sign({ username: teacherUer.username, id: teacherUer.id }, JWT_SECRET);
-        // res.status(200).json({ token });
+        const isValidPassword = await bcrypt.compare(password, user.password);
+        if (!isValidPassword) {
+          return res.status(401).json({ message: "Invalid username or password." });
+        }else{
+          console.log('LOGGED USER INFO IS',user);
+          res.status(200).json(user);
+        }
       }
     }else{
-      res.status(200).json(parentUser);
-      // const token = jwt.sign({ username: user.username, id: user.id }, JWT_SECRET);
-      // res.status(200).json({ token });
+      const isValidPassword = await bcrypt.compare(password, user.password);
+      if (!isValidPassword) {
+        return res.status(401).json({ message: "Invalid username or password." });
+      }else{
+        console.log('LOGGED USER INFO IS',user);
+        res.status(200).json(user);
+      }
     }
   } catch (error) {
-    console.log("LOGIN ERROR IS",error);
-    res.status(500).json({message: "INTERNAL SERVER ERROR"});
+    console.error('LOGIN ERROR IS', error);
+    res.status(500).json({ message: "INTERNAL SERVER ERROR" });
   }
-}
-
+};
 
 exports.createParent = async (req, res) => {
   try {
@@ -61,6 +81,7 @@ exports.createParent = async (req, res) => {
       username: data.username,
       email: data.email,
       phone: data.phone,
+      password: data.password,
       role: data.role,
     });
     res.status(200).json({ success: true, message: "Parent is registered!" });
@@ -75,13 +96,23 @@ exports.createParent = async (req, res) => {
 
 exports.getParent = async (req, res) => {
   try {
-    const parent = await Parent.findByPk(req.params.id);
+    const parent = await Parent.findByPk(req.params.id, {
+      attributes: {
+        exclude: ['password'],
+      },
+    });
+
     if (!parent) {
-      return res
-        .status(200)
-        .json({ success: false, message: "Parent is not available!" });
+      return res.status(404).json({
+        success: false,
+        message: "Parent is not available!",
+      });
     }
-    res.status(200).json(parent);
+
+    res.status(200).json({
+      success: true,
+      data: parent,
+    });
   } catch (error) {
     console.log("GET PARENT ERROR IS...", error);
     res.status(500).json({
@@ -90,6 +121,7 @@ exports.getParent = async (req, res) => {
     });
   }
 };
+
 
 exports.deleteParent = async (req, res) => {
   try {

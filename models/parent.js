@@ -1,7 +1,6 @@
 const { sequelize } = require("../db");
 const { DataTypes } = require("sequelize");
-const Student = require("./student");
-const Help = require("./help");
+const bcrypt = require('bcryptjs');
 
 const Parent = sequelize.define(
   "Parent",
@@ -16,35 +15,44 @@ const Parent = sequelize.define(
     },
     username: {
       type: DataTypes.STRING,
-      allowNull:false
+      allowNull: false,
+      unique:true,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate:{
-        isEmail:true,
+      unique:true,
+      validate: {
+        isEmail: true,
       }
     },
     phone: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      unique:true,
     },
-   rile:{
-    type:DataTypes.STRING,
-    allowNull:false,
-    defaultValue:'parent',
-   }
+    role: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue: 'parent',
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      defaultValue:'parent'
+    }
   },
   {
+    hooks: {
+      beforeCreate: async (parent) => {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(parent.password, saltRounds);
+        parent.password = hashedPassword;
+      },
+    },
     timestamps: false,
-    freezeTableName:true
+    freezeTableName: true,
   }
 );
-
-// Parent.hasMany(Student,{constraints:false})
-// Student.belongsTo(Parent);
-
-// Parent.hasMany(Help,{constraints:false});
-// Help.belongsTo(Parent);
 
 module.exports = Parent;

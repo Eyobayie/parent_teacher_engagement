@@ -5,7 +5,11 @@ const Subject = require("../models/subject");
 
 exports.teachers = async (req, res) => {
   try {
-    const teachers = await Teacher.findAll();
+    const teachers = await Teacher.findAll({
+      attributes:{
+        exclude:['password'],
+      }
+    });
     if (!teachers) {
       return res.status(200).json({
         success: true,
@@ -36,6 +40,7 @@ exports.createTeacher = async (req, res) => {
       email: data.email,
       phone: data.phone,
       role: data.role,
+      password:data.password,
     });
     res.status(200).json({ success: true, message: "Teacher is created!" });
   } catch (error) {
@@ -49,7 +54,11 @@ exports.createTeacher = async (req, res) => {
 
 exports.getTeacher = async (req, res) => {
   try {
-    const teacher = await Teacher.findByPk(req.params.id);
+    const teacher = await Teacher.findByPk(req.params.id,{
+      attributes: {
+        exclude: ['password'],
+      },
+    });
     if (!teacher) {
       return res
         .status(200)
@@ -98,6 +107,7 @@ exports.updateTeacher = async (req, res) => {
         email: data.email,
         phone: data.phone,
         role: data.role,
+        password:data.password,
       },
       { where: { id: req.params.id } }
     );

@@ -166,3 +166,15 @@ exports.updateParent = async (req, res) => {
     });
   }
 };
+exports.countParents = async (req, res) => {
+  try {
+    const totalParents = await Parent.count();
+    res.status(200).json({ success: true, totalParents });
+  } catch (error) {
+    console.log("COUNT PARENT ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+};

@@ -157,3 +157,16 @@ exports.getTeacherDetails = async (req, res, next) => {
     return res.status(500).json({ success: false, message: "Internal Server Error" });
   }
 };
+
+exports.countTeachers = async (req, res) => {
+  try {
+    const totalTeachers = await Teacher.count();
+    res.status(200).json({ success: true, totalTeachers });
+  } catch (error) {
+    console.log("COUNT STUDENTS ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+};

@@ -18,5 +18,8 @@ router
     .route('/gradelevel/:gradeLevelId/section/:sectionId')
     .get(studnetController.getStudentPerSection);
    
-
+router
+    .route('/studentscount')
+    .get(studnetController.countStudents);
+    
 module.exports =router;

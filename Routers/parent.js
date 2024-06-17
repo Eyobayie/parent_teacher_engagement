@@ -13,4 +13,8 @@ router
   router
   .route('/login')
   .post(parentController.login);  
+
+router
+  .route('/parentcount')
+  .get(parentController.countParents);
 module.exports = router;

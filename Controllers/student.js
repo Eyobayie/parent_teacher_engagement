@@ -164,3 +164,15 @@ exports.updateStudent = async (req, res) => {
     });
   }
 };
+exports.countStudents = async (req, res) => {
+  try {
+    const totalStudents = await Student.count();
+    res.status(200).json({ success: true, totalStudents });
+  } catch (error) {
+    console.log("COUNT STUDENTS ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+};

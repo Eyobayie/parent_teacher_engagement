@@ -1,3 +1,4 @@
+const { Model } = require("sequelize");
 const Parent = require("../models/parent");
 const Student = require("../models/student");
 
@@ -44,6 +45,32 @@ exports.getStudentPerSection = async (req, res, next) => {
     });
   }
 };
+exports.getStudentsByParentId = async (req, res) => {
+  try {
+    const students = await Student.findAll({
+       where: { ParentId: req.params.parentId, SectionId: req.params.sectionId },
+      include:[
+        {
+          model: Parent,
+        },
+      ]
+      });
+    if (!students || students.length === 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Student is not available",
+      });
+    }
+    res.status(200).json(students);
+  } catch (error) {
+    console.log("GET STUDENT BY ID ERROR IS...", error);
+    res.status(500).json({
+      success: false,
+      message: "INTERNAL SERVER ERROR",
+    });
+  }
+};
+
 
 exports.createsStudent = async (req, res) => {
   try {

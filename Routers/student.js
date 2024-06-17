@@ -7,6 +7,9 @@ router
     .get(studnetController.students)
     .post(studnetController.createsStudent);
 router
+    .route('/students/:parentId/section/:sectionId')
+    .get(studnetController.getStudentsByParentId);    
+router
     .route('/student/:id')
     .get(studnetController.getStudent)
     .put(studnetController.updateStudent)

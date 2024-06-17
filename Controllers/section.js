@@ -30,6 +30,7 @@ exports.createSection = async (req, res) => {
         { name: data.name,
          description:data.description, 
          GradelevelId:data.GradelevelId,
+         AcademicYearId: data.AcademicYearId
          });
     res.status(200).json({ success: true, message: "Section is created!" });
   } catch (error) {
